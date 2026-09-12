@@ -3,28 +3,25 @@ org 0x7c00 ; tell NASM to start outputting stuff at offset 0x7c00
 
 
 
-boot:
-    mov ah,0x00 
-    int 0x16 
-    cmp ah,0x611e
-    je print
-    je halt 
+main:
+
+
 halt:
-    cli ; clear interrupt flag
-    hlt ; halt execution
-hello: db "Hello world!",0
-
-
-
-print:
-    mov si,hello ; point si register to hello label memory location
-    mov ah,0x0e ; 0x0e means 'Write Character in TTY mode'
+    mov si,halt_msg
+    mov ah,0x0e
 .loop:
     lodsb
-    cmp al,0 ; is al == 0 ?
-    je halt  ; if (al == 0) jump to halt label
-    int 0x10 ; runs BIOS interrupt 0x10 - Video Services
+    cmp al,0
+    je .return
+    int 0x10
     jmp .loop
+.return:
+    cli ; clear interrupt flag
+    hlt ; halt execution
+halt_msg: db "... HALTING",0
+
+
+
 
 times 510 - ($-$$) db 0 ; pad remaining 510 bytes with zeroes
 dw 0xaa55 ; magic bootloader magic - marks this 512 byte sector bootable!
