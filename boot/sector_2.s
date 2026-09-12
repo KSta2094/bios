@@ -1,8 +1,6 @@
 [bits 16]
 
-org 0x7c00 
-
-
+org 0x8000
 
 sector:
 mov si,msg
@@ -17,7 +15,6 @@ mov ah,0eh
     cli ; clear interrupt flag
     hlt ; halt execution
 
-msg : db "Hello from sector 2"
+msg : db "Hello from sector 2",0
 
 times 510 - ($-$$) db 0 ; pad remaining 510 bytes with zeroes
-dw 0xaa55 ; magic bootloader magic - marks this 512 byte sector bootable!
