@@ -4,7 +4,6 @@ org 0x7c00 ; tell NASM to start outputting stuff at offset 0x7c00
 
 
 main:
-
 mov ax,0x0000
 mov es,ax
 mov bx,0x8000
