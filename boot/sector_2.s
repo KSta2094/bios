@@ -33,24 +33,26 @@ dd gdt_start
 
 
 bits 32
-protected_mode:
- ; VGA text memory starts at 0xB8000
 
-    mov edi, 0xB8000
-    mov byte [edi], 'H'
-    mov byte [edi + 2], 'E'
-    mov byte [edi + 4], 'L'
-    mov byte [edi + 6], 'L'
-    mov byte [edi + 8], 'O'
-    mov byte [edi + 10], ' '
-    mov byte [edi + 12], 'W'
-    mov byte [edi + 14], 'O'
-    mov byte [edi + 16], 'R'
-    mov byte [edi + 18], 'L'
-    mov byte [edi + 20], 'D'
-    mov byte [edi + 22], ' '
-    ; Stop here
-    cli
-    hlt
-    ; now we're executing 32-bit protected-mode code
+protected_mode:
+    ; VGA text memory starts at 0xB8000
+
+   mov edi, 0xB8000
+   mov ecx,2000
+   .clear:
+      mov word [edi],0x0720
+      add edi,2
+      loop .clear
+
+   mov edi, 0xB8000
+   mov word [edi],4048h
+   mov word [edi+2],7065h
+   mov word [edi+4],704ch
+   mov word [edi+6],706ch
+   mov word [edi+8],406fh
+
+   cli
+   hlt
+
+
 times 512 - ($-$$) db 0 
