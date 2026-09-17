@@ -45,12 +45,12 @@ protected_mode:
     mov byte [edi + 10], ' '
     mov byte [edi + 12], 'W'
     mov byte [edi + 14], 'O'
-    mov byte [edi + 15], 'R'
-    mov byte [edi + 16], 'L'
-    mov byte [edi + 17], 'D'
-    mov byte [edi + 18], ' '
+    mov byte [edi + 16], 'R'
+    mov byte [edi + 18], 'L'
+    mov byte [edi + 20], 'D'
+    mov byte [edi + 22], ' '
     ; Stop here
     cli
     hlt
     ; now we're executing 32-bit protected-mode code
-times 512 - ($-$$) db 0 ; pad remaining 510 bytes with zeroes
+times 512 - ($-$$) db 0 
